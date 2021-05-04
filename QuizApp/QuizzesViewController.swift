@@ -112,6 +112,7 @@ class QuizzesViewController: UIViewController {
         // infoLabel.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 15))
         
         tableView.autoPinEdge(.top, to: .bottom, of: infoLabel, withOffset: 20)
+        // pinaj leading, trailing, bottom
         tableView.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.9, height: CGFloat(ds.fetchQuizes().capacity) * UIScreen.main.bounds.size.height * 0.25))
         tableView.autoAlignAxis(.vertical, toSameAxisOf: appNameLabel)
 

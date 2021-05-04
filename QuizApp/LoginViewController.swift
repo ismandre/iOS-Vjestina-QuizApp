@@ -41,10 +41,6 @@ class LoginViewController: UIViewController {
         layer0.bounds = view.bounds.insetBy(dx: -0.5*view.bounds.size.width, dy: -0.5*view.bounds.size.height)
         layer0.position = view.center
         view.layer.addSublayer(layer0)
-        
-        // view.frame = view.bounds
-        
-        
 
         appNameLabel = UILabel()
         appNameLabel.backgroundColor = UIColor(red: 0.455, green: 0.310, blue: 0.639, alpha: 0)
@@ -68,8 +64,6 @@ class LoginViewController: UIViewController {
                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         emailTextfield.textColor = .white
         
-        
-
         passwordTextField = UITextField()
         passwordTextField.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
         passwordTextField.layer.cornerRadius = 21.0
@@ -83,8 +77,6 @@ class LoginViewController: UIViewController {
                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         passwordTextField.isSecureTextEntry = true
         passwordTextField.textColor = .white
-        
-        
 
         loginbutton = UIButton()
         loginbutton.backgroundColor = .white
@@ -108,7 +100,9 @@ class LoginViewController: UIViewController {
         //appNameLabel.autoSetDimensions(to: CGSize(width: 140, height: 30))
         
         emailTextfield.autoCenterInSuperview()
-        emailTextfield.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 50))
+        // emailTextfield.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 50))
+        emailTextfield.autoMatch(.width, to: .width, of: view, withMultiplier: 0.8)
+        emailTextfield.autoSetDimension(.height, toSize: 50)
         
         passwordTextField.autoAlignAxis(.vertical, toSameAxisOf: emailTextfield)
         passwordTextField.autoPinEdge(.top, to: .bottom, of: emailTextfield, withOffset: 20)
@@ -117,22 +111,6 @@ class LoginViewController: UIViewController {
         loginbutton.autoAlignAxis(.vertical, toSameAxisOf: passwordTextField)
         loginbutton.autoPinEdge(.top, to: .bottom, of: passwordTextField, withOffset: 20)
         loginbutton.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 50))
-
-/*
-        redRectangle.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 10)
-        redRectangle.autoPinEdge(.leading, to: .trailing, of: yellowRectangle, withOffset: 10)
-        redRectangle.autoPinEdge(toSuperviewSafeArea: .top, withInset: 10)
-        redRectangle.autoSetDimension(.height, toSize: 100)
-        redRectangle.autoMatch(.width, to: .width, of: yellowRectangle)
-
-        greenRectangle.autoCenterInSuperview()
-        greenRectangle.autoMatch(.width, to: .width, of: redRectangle)
-        greenRectangle.autoMatch(.height, to: .height, of: redRectangle)
-
-        whiteRectangle.autoAlignAxis(.vertical, toSameAxisOf: greenRectangle)
-        whiteRectangle.autoPinEdge(.top, to: .bottom, of: greenRectangle, withOffset: 20)
-        whiteRectangle.autoSetDimensions(to: CGSize(width: 50, height: 50))
-*/
     }
     
     @objc
