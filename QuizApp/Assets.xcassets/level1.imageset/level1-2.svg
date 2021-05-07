@@ -1,0 +1,46 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with UXWing SVG Editor - https://uxwing.com/svg-icon-editor/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="514" width="514" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_29">
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_5">
+    <g id="svg_6">
+     <circle fill="#FFE7A2" stroke="#ffe7a2" id="svg_7" r="42.667" cy="640.000023" cx="469.333473"/>
+    </g>
+   </g>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_8">
+    <g id="svg_9">
+     <circle fill="#ffffff" stroke="#FFE7A2" id="svg_10" r="42.667" cy="640.000023" cx="639.999473"/>
+    </g>
+   </g>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_11">
+    <g id="svg_12">
+     <circle stroke="#FFE7A2" fill="#ffffff" id="svg_13" r="42.667" cy="640.000023" cx="810.666473"/>
+    </g>
+   </g>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_14"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_15"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_16"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_17"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_18"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_19"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_20"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_21"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_22"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_23"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_24"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_25"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_26"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_27"/>
+   <g transform="matrix(0.4 0 0 0.4 0 0)" id="svg_28"/>
+  </g>
+ </g>
+</svg>
