@@ -7,5 +7,6 @@ target 'QuizApp' do
 
   # Pods for QuizApp
   pod 'PureLayout'
+  pod 'SGSegmentedProgressBarLibrary'
 
 end
