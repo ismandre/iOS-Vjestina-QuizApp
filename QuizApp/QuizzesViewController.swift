@@ -9,16 +9,20 @@ import UIKit
 
 class QuizzesViewController: UIViewController {
     
-    let cellIdentifier = "cellId"
-
     private var appNameLabel: UILabel!
+    private var lightbulbImage: UIImageView!
+    private var circleImage: UIImageView!
     private var getQuizButton: UIButton!
     private var funFactLabel: UILabel!
     private var infoLabel: UILabel!
     
+    let cellIdentifier = "cellId"
     private var tableView: UITableView!
     
     private var ds = DataService()
+    private var byCategory: Dictionary<QuizCategory, [Quiz]> = [:]
+    private var sectionToCategory = [QuizCategory]()
+    private var quizzes = [CategoryQuiz]()
     
     let relativeFontConstant:CGFloat = 0.05
     let relativeFontFunFactConstant:CGFloat = 0.025
@@ -50,45 +54,75 @@ class QuizzesViewController: UIViewController {
         appNameLabel.backgroundColor = UIColor(red: 0.455, green: 0.310, blue: 0.639, alpha: 0)
         appNameLabel.text = "PopQuiz"
         appNameLabel.textAlignment = .center
-        appNameLabel.font = UIFont(name: "Superclarendon-Black", size: UIScreen.main.bounds.height * relativeFontConstant)
+        appNameLabel.font = UIFont(name: "SourceSansPro-Black", size: 30)
         appNameLabel.textColor = .white
 
         getQuizButton = UIButton()
         getQuizButton.backgroundColor = .white
         getQuizButton.setTitle("Get Quiz", for: .normal)
         getQuizButton.setTitleColor(UIColor(red: 0.455, green: 0.310, blue: 0.639, alpha: 1), for: .normal)
-        getQuizButton.titleLabel?.font = UIFont(name: "Superclarendon-Black", size: 15)
+        getQuizButton.titleLabel?.font = UIFont(name: "SourceSansPro-Black", size: 18)
         getQuizButton.layer.cornerRadius = 22.0
         
         getQuizButton.addTarget(self, action: #selector(getQuizAction), for: .touchUpInside)
         
         
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20.0, weight: .heavy)
+        let lightbulb = UIImage(systemName: "lightbulb", withConfiguration: configuration)
+        lightbulbImage = UIImageView(image: lightbulb)
+        lightbulbImage.tintColor = .white
+        lightbulbImage.isHidden = true
+    
+        
         funFactLabel = UILabel()
         funFactLabel.text = "Fun Fact"
         funFactLabel.textColor = .white
-        funFactLabel.font = UIFont(name: "Superclarendon-Black", size: UIScreen.main.bounds.height * relativeFontFunFactConstant)
+        funFactLabel.font = UIFont(name: "SourceSansPro-Black", size: UIScreen.main.bounds.height * relativeFontFunFactConstant)
         funFactLabel.isHidden = true
         
         infoLabel = UILabel()
         infoLabel.textColor = .white
-        infoLabel.font = UIFont(name: "Superclarendon-Regular", size: UIScreen.main.bounds.height * relativeInfoConstant)
-        infoLabel.isHidden = true
+        infoLabel.font = UIFont(name: "SourceSansPro-Bold", size: 20)
+        infoLabel.numberOfLines = 0
+        // infoLabel.isHidden = true
         
+        
+        
+        
+        
+        // set up za tablicu --------------
         
         tableView = UITableView()
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
-        tableView.dataSource = self
-        tableView.backgroundColor = nil
-        tableView.isHidden = true
-        tableView.delegate = self
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .none
-        // tableView.
-        
-        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.isHidden = true
+        tableView.backgroundColor = .clear
+        // set up za tablicu --------------
+        
+        
+        
+        // podatci vezani za kvizove
+        quizzes = [CategoryQuiz]()
+        let allQuizzes = ds.fetchQuizes()
+        byCategory = Dictionary(grouping: allQuizzes, by: { $0.category })
+        for k in byCategory.keys {
+            sectionToCategory.append(k)
+        }
+        // podatci vezani za kvizove
+        
+        
+        
+        
+        navigationItem.hidesBackButton = true
+        
+        
+    
         view.addSubview(infoLabel)
         view.addSubview(funFactLabel)
+        view.addSubview(lightbulbImage)
         view.addSubview(appNameLabel)
         view.addSubview(getQuizButton)
     }
@@ -96,26 +130,43 @@ class QuizzesViewController: UIViewController {
     private func addConstraints() {
         
         appNameLabel.autoAlignAxis(toSuperviewAxis: .vertical)
-        appNameLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 50)
+        appNameLabel.autoPinEdge(toSuperviewSafeArea: .top, withInset: 30)
         //appNameLabel.autoSetDimensions(to: CGSize(width: 140, height: 30))
         
         getQuizButton.autoAlignAxis(.vertical, toSameAxisOf: appNameLabel)
-        getQuizButton.autoPinEdge(.top, to: .bottom, of: appNameLabel, withOffset: 30)
-        getQuizButton.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 50))
+        getQuizButton.autoPinEdge(.top, to: .bottom, of: appNameLabel, withOffset: 20)
+        getQuizButton.autoPinEdge(toSuperviewSafeArea: .leading, withInset: 30)
+        getQuizButton.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 30)
+        getQuizButton.autoSetDimensions(to: CGSize(width: 30, height: 50))
         
-        funFactLabel.autoPinEdge(.leading, to: .leading, of: getQuizButton)
+        lightbulbImage.autoPinEdge(.leading, to: .leading, of: getQuizButton)
+        lightbulbImage.autoPinEdge(.top, to: .bottom, of: getQuizButton, withOffset: 25)
+        
+        
+        funFactLabel.autoPinEdge(.leading, to: .trailing, of: lightbulbImage, withOffset: 10)
         funFactLabel.autoPinEdge(.top, to: .bottom, of: getQuizButton, withOffset: 25)
         // funFactLabel.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 15))
         
         infoLabel.autoPinEdge(.leading, to: .leading, of: getQuizButton)
         infoLabel.autoPinEdge(.top, to: .bottom, of: funFactLabel, withOffset: 5)
+        infoLabel.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 30)
         // infoLabel.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 15))
         
+        tableView.autoPinEdge(toSuperviewSafeArea: .leading, withInset: 30)
         tableView.autoPinEdge(.top, to: .bottom, of: infoLabel, withOffset: 20)
-        // pinaj leading, trailing, bottom
-        tableView.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.9, height: CGFloat(ds.fetchQuizes().capacity) * UIScreen.main.bounds.size.height * 0.25))
-        tableView.autoAlignAxis(.vertical, toSameAxisOf: appNameLabel)
-
+        tableView.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 30)
+        tableView.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 10)
+   
+/*
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32.0).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120.0).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -32.0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32.0).isActive = true
+ */
+        
+        
+    
     }
     
     @objc
@@ -126,62 +177,76 @@ class QuizzesViewController: UIViewController {
         infoLabel.text = "There are " + String(totalNBA) + " questions that contain the word \"NBA\""
         funFactLabel.isHidden = false
         infoLabel.isHidden = false
+        lightbulbImage.isHidden = false
+        tableView.reloadData()
         tableView.isHidden = false
         
     }
 }
 
 
-extension QuizzesViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
+extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(section)
-        if (section == 0) {
-            return ds.fetchQuizes().filter { $0.category == .sport }.capacity
-        } else {
-            return ds.fetchQuizes().filter { $0.category == .science }.capacity
-        }
+        return byCategory[sectionToCategory[section]]!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier,
-                                                 for: indexPath) as? CustomTableViewCell else {
-                                                    return UITableViewCell()
-                                                 }
-        print()
+        let text = byCategory[sectionToCategory[indexPath.section]]![indexPath.row].title.uppercased() + "\n\n" + byCategory[sectionToCategory[indexPath.section]]![indexPath.row].description
+        cell.textLabel?.text = text
+        cell.textLabel?.font = UIFont(name: "SourceSansPro-Black", size: 15)
+        cell.textLabel?.textColor = .white
+        cell.textLabel?.numberOfLines = 0
+        cell.imageView?.image = UIImage(named: "sport2")
+        cell.imageView?.contentMode = .scaleAspectFill
+        cell.imageView?.clipsToBounds = true
+        cell.imageView?.layer.cornerRadius = 10
         
-        cell.configure(name: "Quiz Name", desc: "This is default description of quiz that is being displayed. This is some more text.", imageName: "sport.jpeg")
-        cell.backgroundColor = UIColor(red: 0, green: 0.39, blue: 0.106, alpha: 0)
+        
+       
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .black)
+        let circle = UIImage(systemName: "circle.fill", withConfiguration: configuration)
+        circleImage = UIImageView(image: circle)
+        let level = byCategory[sectionToCategory[indexPath.section]]![indexPath.row].level
+        if level == 1 {
+            circleImage.tintColor = .systemGreen
+        } else if level == 2 {
+            circleImage.tintColor = .systemOrange
+        } else {
+            circleImage.tintColor = .systemRed
+        }
+        cell.accessoryView = circleImage
+        cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
+        cell.layer.cornerRadius = 20
+        cell.frame = cell.frame.inset(by: UIEdgeInsets(top: 100, left: 10, bottom: 10, right: 10))
+        cell.clipsToBounds = true
+
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.size.height * 0.25
+        return 200
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let allQuizzes = ds.fetchQuizes()
+        let byCategory = Dictionary(grouping: allQuizzes, by: { $0.category })
+        return byCategory.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
-        let sectionName: String
-        switch section {
-            case 0:
-                sectionName = NSLocalizedString("Sport", comment: "Sport")
-            case 1:
-                sectionName = NSLocalizedString("Science", comment: "Science")
-            // ...
-            default:
-                sectionName = ""
-        }
-        return sectionName
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
+        headerView.backgroundColor = .clear
+        
+        headerView.text = sectionToCategory[section].rawValue.lowercased().capitalized
+        headerView.textColor = .white
+        headerView.font = UIFont(name: "SourceSansPro-Black", size: 20)
+        
+        return headerView
     }
-    
     
 }
 

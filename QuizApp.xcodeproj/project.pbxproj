@@ -16,6 +16,23 @@
 		F9A82FD62641306A009FADA9 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A82FD12641306A009FADA9 /* Quiz.swift */; };
 		F9A82FD72641306A009FADA9 /* QuizCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A82FD22641306A009FADA9 /* QuizCategory.swift */; };
 		F9A82FD82641306A009FADA9 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A82FD32641306A009FADA9 /* Question.swift */; };
+		F9A82FE3264136D0009FADA9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A82FE2264136D0009FADA9 /* SettingsViewController.swift */; };
+		F9A82FFF26414221009FADA9 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF226414221009FADA9 /* SourceSansPro-BlackItalic.ttf */; };
+		F9A8300026414221009FADA9 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF326414221009FADA9 /* SourceSansPro-SemiBoldItalic.ttf */; };
+		F9A8300126414221009FADA9 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF426414221009FADA9 /* SourceSansPro-Regular.ttf */; };
+		F9A8300226414221009FADA9 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF526414221009FADA9 /* SourceSansPro-Bold.ttf */; };
+		F9A8300326414221009FADA9 /* SourceSansPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF626414221009FADA9 /* SourceSansPro-LightItalic.ttf */; };
+		F9A8300426414221009FADA9 /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF726414221009FADA9 /* SourceSansPro-Light.ttf */; };
+		F9A8300526414221009FADA9 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF826414221009FADA9 /* SourceSansPro-Black.ttf */; };
+		F9A8300626414221009FADA9 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FF926414221009FADA9 /* OFL.txt */; };
+		F9A8300726414221009FADA9 /* SourceSansPro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FFA26414221009FADA9 /* SourceSansPro-ExtraLight.ttf */; };
+		F9A8300826414221009FADA9 /* SourceSansPro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FFB26414221009FADA9 /* SourceSansPro-BoldItalic.ttf */; };
+		F9A8300926414221009FADA9 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FFC26414221009FADA9 /* SourceSansPro-SemiBold.ttf */; };
+		F9A8300A26414221009FADA9 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FFD26414221009FADA9 /* SourceSansPro-ExtraLightItalic.ttf */; };
+		F9A8300B26414221009FADA9 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9A82FFE26414221009FADA9 /* SourceSansPro-Italic.ttf */; };
+		F9A8303F2642831E009FADA9 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A8303E2642831E009FADA9 /* QuizViewController.swift */; };
+		F9A83042264283E9009FADA9 /* QuizResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A83041264283E9009FADA9 /* QuizResultController.swift */; };
+		F9A8306A2643F61A009FADA9 /* CategoryQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A830692643F61A009FADA9 /* CategoryQuiz.swift */; };
 		F9EAE7F42626E2E50011836A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EAE7F32626E2E50011836A /* AppDelegate.swift */; };
 		F9EAE7F62626E2E50011836A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EAE7F52626E2E50011836A /* SceneDelegate.swift */; };
 		F9EAE7FB2626E2E50011836A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EAE7F92626E2E50011836A /* Main.storyboard */; };
@@ -35,6 +52,23 @@
 		F9A82FD12641306A009FADA9 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		F9A82FD22641306A009FADA9 /* QuizCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizCategory.swift; sourceTree = "<group>"; };
 		F9A82FD32641306A009FADA9 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		F9A82FE2264136D0009FADA9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F9A82FF226414221009FADA9 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
+		F9A82FF326414221009FADA9 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		F9A82FF426414221009FADA9 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		F9A82FF526414221009FADA9 /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
+		F9A82FF626414221009FADA9 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
+		F9A82FF726414221009FADA9 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
+		F9A82FF826414221009FADA9 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
+		F9A82FF926414221009FADA9 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		F9A82FFA26414221009FADA9 /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
+		F9A82FFB26414221009FADA9 /* SourceSansPro-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BoldItalic.ttf"; sourceTree = "<group>"; };
+		F9A82FFC26414221009FADA9 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		F9A82FFD26414221009FADA9 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		F9A82FFE26414221009FADA9 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
+		F9A8303E2642831E009FADA9 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		F9A83041264283E9009FADA9 /* QuizResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultController.swift; sourceTree = "<group>"; };
+		F9A830692643F61A009FADA9 /* CategoryQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryQuiz.swift; sourceTree = "<group>"; };
 		F9EAE7F02626E2E50011836A /* QuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EAE7F32626E2E50011836A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9EAE7F52626E2E50011836A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +109,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F9A82FF126414221009FADA9 /* Source_Sans_Pro */ = {
+			isa = PBXGroup;
+			children = (
+				F9A82FF226414221009FADA9 /* SourceSansPro-BlackItalic.ttf */,
+				F9A82FF326414221009FADA9 /* SourceSansPro-SemiBoldItalic.ttf */,
+				F9A82FF426414221009FADA9 /* SourceSansPro-Regular.ttf */,
+				F9A82FF526414221009FADA9 /* SourceSansPro-Bold.ttf */,
+				F9A82FF626414221009FADA9 /* SourceSansPro-LightItalic.ttf */,
+				F9A82FF726414221009FADA9 /* SourceSansPro-Light.ttf */,
+				F9A82FF826414221009FADA9 /* SourceSansPro-Black.ttf */,
+				F9A82FF926414221009FADA9 /* OFL.txt */,
+				F9A82FFA26414221009FADA9 /* SourceSansPro-ExtraLight.ttf */,
+				F9A82FFB26414221009FADA9 /* SourceSansPro-BoldItalic.ttf */,
+				F9A82FFC26414221009FADA9 /* SourceSansPro-SemiBold.ttf */,
+				F9A82FFD26414221009FADA9 /* SourceSansPro-ExtraLightItalic.ttf */,
+				F9A82FFE26414221009FADA9 /* SourceSansPro-Italic.ttf */,
+			);
+			name = Source_Sans_Pro;
+			path = ../../../Downloads/Source_Sans_Pro;
+			sourceTree = "<group>";
+		};
 		F9EAE7E72626E2E50011836A = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +151,7 @@
 		F9EAE7F22626E2E50011836A /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
+				F9A82FF126414221009FADA9 /* Source_Sans_Pro */,
 				F9A82FCF2641306A009FADA9 /* DataServiceProtocol.swift */,
 				F9A82FD02641306A009FADA9 /* LoginStatus.swift */,
 				F9A82FD32641306A009FADA9 /* Question.swift */,
@@ -111,6 +167,10 @@
 				F9EAE8122626EBA00011836A /* LoginViewController.swift */,
 				F9A7868326273D630068E03C /* QuizzesViewController.swift */,
 				F9A7868826275EF00068E03C /* CustomTableViewCell.swift */,
+				F9A82FE2264136D0009FADA9 /* SettingsViewController.swift */,
+				F9A8303E2642831E009FADA9 /* QuizViewController.swift */,
+				F9A83041264283E9009FADA9 /* QuizResultController.swift */,
+				F9A830692643F61A009FADA9 /* CategoryQuiz.swift */,
 			);
 			path = QuizApp;
 			sourceTree = "<group>";
@@ -174,9 +234,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9A8300726414221009FADA9 /* SourceSansPro-ExtraLight.ttf in Resources */,
+				F9A82FFF26414221009FADA9 /* SourceSansPro-BlackItalic.ttf in Resources */,
+				F9A8300626414221009FADA9 /* OFL.txt in Resources */,
+				F9A8300026414221009FADA9 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				F9EAE8002626E2E80011836A /* LaunchScreen.storyboard in Resources */,
+				F9A8300A26414221009FADA9 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
+				F9A8300426414221009FADA9 /* SourceSansPro-Light.ttf in Resources */,
+				F9A8300326414221009FADA9 /* SourceSansPro-LightItalic.ttf in Resources */,
 				F9EAE7FD2626E2E80011836A /* Assets.xcassets in Resources */,
 				F9EAE7FB2626E2E50011836A /* Main.storyboard in Resources */,
+				F9A8300226414221009FADA9 /* SourceSansPro-Bold.ttf in Resources */,
+				F9A8300526414221009FADA9 /* SourceSansPro-Black.ttf in Resources */,
+				F9A8300126414221009FADA9 /* SourceSansPro-Regular.ttf in Resources */,
+				F9A8300826414221009FADA9 /* SourceSansPro-BoldItalic.ttf in Resources */,
+				F9A8300B26414221009FADA9 /* SourceSansPro-Italic.ttf in Resources */,
+				F9A8300926414221009FADA9 /* SourceSansPro-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,11 +308,15 @@
 				F9A7868926275EF00068E03C /* CustomTableViewCell.swift in Sources */,
 				F9A82FD72641306A009FADA9 /* QuizCategory.swift in Sources */,
 				F9EAE7F42626E2E50011836A /* AppDelegate.swift in Sources */,
+				F9A8306A2643F61A009FADA9 /* CategoryQuiz.swift in Sources */,
 				F9141078262D70FB00A757FA /* DataService.swift in Sources */,
+				F9A83042264283E9009FADA9 /* QuizResultController.swift in Sources */,
 				F9EAE7F62626E2E50011836A /* SceneDelegate.swift in Sources */,
+				F9A8303F2642831E009FADA9 /* QuizViewController.swift in Sources */,
 				F9A82FD62641306A009FADA9 /* Quiz.swift in Sources */,
 				F9A82FD52641306A009FADA9 /* LoginStatus.swift in Sources */,
 				F9EAE8132626EBA00011836A /* LoginViewController.swift in Sources */,
+				F9A82FE3264136D0009FADA9 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

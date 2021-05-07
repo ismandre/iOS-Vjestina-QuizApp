@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
         appNameLabel.backgroundColor = UIColor(red: 0.455, green: 0.310, blue: 0.639, alpha: 0)
         appNameLabel.text = "PopQuiz"
         appNameLabel.textAlignment = .center
-        appNameLabel.font = UIFont(name: "Superclarendon-Black", size: UIScreen.main.bounds.height * relativeFontConstant)
+        appNameLabel.font = UIFont(name: "SourceSansPro-Black", size: 50)
         appNameLabel.textColor = .white
 
         emailTextfield = UITextField()
@@ -82,7 +82,7 @@ class LoginViewController: UIViewController {
         loginbutton.backgroundColor = .white
         loginbutton.setTitle("Login", for: .normal)
         loginbutton.setTitleColor(UIColor(red: 0.455, green: 0.310, blue: 0.639, alpha: 1), for: .normal)
-        loginbutton.titleLabel?.font = UIFont(name: "Superclarendon-Black", size: 15)
+        loginbutton.titleLabel?.font = UIFont(name: "SourceSansPro-Black", size: 18)
         loginbutton.layer.cornerRadius = 22.0
         
         loginbutton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
@@ -119,7 +119,8 @@ class LoginViewController: UIViewController {
         let password = passwordTextField.text ?? ""
         let result = ds.login(email: email, password: password)
         if (result == LoginStatus.success) {
-            print("Email: " + email + " \nPassword: " + password)
+            let quizzesViewController = QuizzesViewController()
+            navigationController?.pushViewController(quizzesViewController, animated: true)
         } else {
             print("Password or email address are incorrect.")
         }
