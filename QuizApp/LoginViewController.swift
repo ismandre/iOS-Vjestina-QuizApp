@@ -8,7 +8,6 @@
 import UIKit
 import PureLayout
 
-@objcMembers
 class LoginViewController: UIViewController {
     
     private var appNameLabel: UILabel!
