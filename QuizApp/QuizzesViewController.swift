@@ -22,7 +22,8 @@ class QuizzesViewController: UIViewController {
     private var ds = DataService()
     private var byCategory: Dictionary<QuizCategory, [Quiz]> = [:]
     private var sectionToCategory = [QuizCategory]()
-    private var quizzes = [CategoryQuiz]()
+    
+    private var networkService = NetworkService()
     
     let relativeFontConstant:CGFloat = 0.05
     let relativeFontFunFactConstant:CGFloat = 0.025
@@ -91,7 +92,6 @@ class QuizzesViewController: UIViewController {
         
         
         // set up za tablicu --------------
-        
         tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
@@ -105,11 +105,28 @@ class QuizzesViewController: UIViewController {
         
         
         // podatci vezani za kvizove
-        quizzes = [CategoryQuiz]()
-        let allQuizzes = ds.fetchQuizes()
-        byCategory = Dictionary(grouping: allQuizzes, by: { $0.category })
-        for k in byCategory.keys {
-            sectionToCategory.append(k)
+        let urlString = "https://iosquiz.herokuapp.com/api/quizzes"
+        guard let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        networkService.executeUrlRequest(request) { (result: Result<QuizzesResponse, RequestError>) in
+            var quizzes: [Quiz]
+            switch result {
+            case .failure(let error):
+                print ("Error:", error)
+                return
+            case .success(let value):
+                quizzes = value.quizzes
+            }
+            DispatchQueue.main.async {
+                self.byCategory = Dictionary(grouping: quizzes, by: { $0.category })
+                for k in self.byCategory.keys {
+                    self.sectionToCategory.append(k)
+                }
+            }
         }
         // podatci vezani za kvizove
         
@@ -164,23 +181,36 @@ class QuizzesViewController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -32.0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32.0).isActive = true
  */
-        
-        
-    
     }
     
     @objc
     private func getQuizAction() {
-        let quizzes = ds.fetchQuizes()
-        let totalNBA = quizzes.map{ $0.questions }.flatMap{ $0 }.map{ $0.question }.filter{ $0.contains("NBA")}.reduce(0, {x, y in x + 1})
         
-        infoLabel.text = "There are " + String(totalNBA) + " questions that contain the word \"NBA\""
-        funFactLabel.isHidden = false
-        infoLabel.isHidden = false
-        lightbulbImage.isHidden = false
-        tableView.reloadData()
-        tableView.isHidden = false
+        let urlString = "https://iosquiz.herokuapp.com/api/quizzes"
+        guard let url = URL(string: urlString) else { return }
         
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        networkService.executeUrlRequest(request) { (result: Result<QuizzesResponse, RequestError>) in
+            var quizzes: [Quiz]
+            switch result {
+            case .failure(let error):
+                print ("Error:", error)
+                return
+            case .success(let value):
+                quizzes = value.quizzes
+                let totalNBA = quizzes.map{ $0.questions }.flatMap{ $0 }.map{ $0.question }.filter{ $0.contains("NBA")}.reduce(0, {x, y in x + 1})
+                self.infoLabel.text = "There are " + String(totalNBA) + " questions that contain the word \"NBA\""
+                self.funFactLabel.isHidden = false
+                self.infoLabel.isHidden = false
+                self.lightbulbImage.isHidden = false
+                self.tableView.isHidden = false
+            
+                self.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -188,6 +218,8 @@ class QuizzesViewController: UIViewController {
 extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print (self.byCategory)
+        print (self.sectionToCategory)
         return byCategory[sectionToCategory[section]]!.count
     }
     
@@ -232,10 +264,9 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        let allQuizzes = ds.fetchQuizes()
-        let byCategory = Dictionary(grouping: allQuizzes, by: { $0.category })
-        return byCategory.count
+        return 5
     }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
