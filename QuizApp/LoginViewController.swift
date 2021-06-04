@@ -157,6 +157,7 @@ class LoginViewController: UIViewController {
                 defaults.setValue(value.id, forKey: "id")
                 defaults.setValue(value.token, forKey: "token")
                 let quizzesViewController = QuizzesViewController()
+                self.navigationController?.popViewController(animated: true)
                 self.navigationController?.pushViewController(quizzesViewController, animated: true)
             }
         }

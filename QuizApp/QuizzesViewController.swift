@@ -19,7 +19,6 @@ class QuizzesViewController: UIViewController {
     let cellIdentifier = "cellId"
     private var tableView: UITableView!
     
-    private var ds = DataService()
     private var byCategory: Dictionary<QuizCategory, [Quiz]> = [:]
     private var sectionToCategory = [QuizCategory]()
     
@@ -105,34 +104,11 @@ class QuizzesViewController: UIViewController {
         
         
         // podatci vezani za kvizove
-        let urlString = "https://iosquiz.herokuapp.com/api/quizzes"
-        guard let url = URL(string: urlString) else { return }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        networkService.executeUrlRequest(request) { (result: Result<QuizzesResponse, RequestError>) in
-            var quizzes: [Quiz]
-            switch result {
-            case .failure(let error):
-                print ("Error:", error)
-                return
-            case .success(let value):
-                quizzes = value.quizzes
-            }
-            DispatchQueue.main.async {
-                self.byCategory = Dictionary(grouping: quizzes, by: { $0.category })
-                for k in self.byCategory.keys {
-                    self.sectionToCategory.append(k)
-                }
-            }
-        }
+        
         // podatci vezani za kvizove
-        
-        
-        
-        
+      
         navigationItem.hidesBackButton = true
         
         
@@ -173,14 +149,7 @@ class QuizzesViewController: UIViewController {
         tableView.autoPinEdge(.top, to: .bottom, of: infoLabel, withOffset: 20)
         tableView.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 30)
         tableView.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 10)
-   
-/*
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32.0).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120.0).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -32.0).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32.0).isActive = true
- */
+
     }
     
     @objc
@@ -193,7 +162,8 @@ class QuizzesViewController: UIViewController {
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        networkService.executeUrlRequest(request) { (result: Result<QuizzesResponse, RequestError>) in
+        DispatchQueue.global(qos: .userInitiated).async {
+        NetworkService().executeUrlRequest(request) { (result: Result<QuizzesResponse, RequestError>) in
             var quizzes: [Quiz]
             switch result {
             case .failure(let error):
@@ -207,9 +177,27 @@ class QuizzesViewController: UIViewController {
                 self.infoLabel.isHidden = false
                 self.lightbulbImage.isHidden = false
                 self.tableView.isHidden = false
+                
+                self.byCategory.removeAll()
+                self.sectionToCategory.removeAll()
+                for quiz in quizzes {
+                    var list = self.byCategory[quiz.category] ?? []
+                    if (list.isEmpty) {
+                        list = [Quiz]()
+                    } else {
+                        list = self.byCategory[quiz.category] ?? []
+                    }
+                    list.append(quiz)
+                    self.byCategory[quiz.category] = list
+                }
+                
+                for category in self.byCategory {
+                    self.sectionToCategory.append(category.key)
+                }
             
                 self.tableView.reloadData()
             }
+        }
         }
     }
 }
@@ -218,8 +206,6 @@ class QuizzesViewController: UIViewController {
 extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print (self.byCategory)
-        print (self.sectionToCategory)
         return byCategory[sectionToCategory[section]]!.count
     }
     
@@ -227,6 +213,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         let text = byCategory[sectionToCategory[indexPath.section]]![indexPath.row].title.uppercased() + "\n\n" + byCategory[sectionToCategory[indexPath.section]]![indexPath.row].description
+    
         cell.textLabel?.text = text
         cell.textLabel?.font = UIFont(name: "SourceSansPro-Black", size: 15)
         cell.textLabel?.textColor = .white
@@ -235,7 +222,6 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.imageView?.contentMode = .scaleAspectFill
         cell.imageView?.clipsToBounds = true
         cell.imageView?.layer.cornerRadius = 10
-        
         
        
         let configuration = UIImage.SymbolConfiguration(pointSize: 20, weight: .black)
@@ -264,7 +250,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return byCategory.count
     }
     
     
@@ -277,6 +263,12 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         headerView.font = UIFont(name: "SourceSansPro-Black", size: 20)
         
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let quiz = byCategory[sectionToCategory[indexPath.section]]![indexPath.row]
+        let quizViewController = QuizViewController(quiz: quiz)
+        self.navigationController?.pushViewController(quizViewController, animated: true)
     }
     
 }
