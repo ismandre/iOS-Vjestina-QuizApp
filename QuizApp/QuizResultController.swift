@@ -13,7 +13,20 @@ class QuizResultViewController: UIViewController {
     private var resultLabel: UILabel!
     private var finishQuizButton: UIButton!
     
+    private var correctlyAnswered: Int!
+    private var numberOfQuestions: Int!
+    
     let relativeFontConstant:CGFloat = 0.05
+    
+    init(correctlyAnswered: Int, numberOfQuestions: Int) {
+        self.correctlyAnswered = correctlyAnswered
+        self.numberOfQuestions = numberOfQuestions
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +53,7 @@ class QuizResultViewController: UIViewController {
 
         resultLabel = UILabel()
         resultLabel.backgroundColor = UIColor(red: 0.455, green: 0.310, blue: 0.639, alpha: 0)
-        resultLabel.text = "7/10"
+        resultLabel.text = String(correctlyAnswered) + "/" + String(numberOfQuestions)
         resultLabel.textAlignment = .center
         resultLabel.font = UIFont(name: "SourceSansPro-Black", size:100)
         resultLabel.textColor = .white
@@ -71,6 +84,6 @@ class QuizResultViewController: UIViewController {
     
     @objc
     private func logoutAction() {
-        print("button pressed")
+        self.navigationController?.popViewController(animated: true)
     }
 }

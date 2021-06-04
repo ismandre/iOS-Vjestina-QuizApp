@@ -14,8 +14,10 @@ class LoginViewController: UIViewController {
     private var emailTextfield: UITextField!
     private var passwordTextField: UITextField!
     private var loginbutton: UIButton!
+    private var unsuccessfulLogin: UILabel!
     
     private var ds = DataService()
+    private var networkService = NetworkService()
     
     let relativeFontConstant:CGFloat = 0.05
 
@@ -63,6 +65,8 @@ class LoginViewController: UIViewController {
                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         emailTextfield.textColor = .white
         
+        emailTextfield.addTarget(self, action: #selector(hideLoginMessageAction), for: .editingDidBegin)
+        
         passwordTextField = UITextField()
         passwordTextField.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
         passwordTextField.layer.cornerRadius = 21.0
@@ -76,6 +80,8 @@ class LoginViewController: UIViewController {
                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         passwordTextField.isSecureTextEntry = true
         passwordTextField.textColor = .white
+        
+        passwordTextField.addTarget(self, action: #selector(hideLoginMessageAction), for: .editingDidBegin)
 
         loginbutton = UIButton()
         loginbutton.backgroundColor = .white
@@ -86,10 +92,19 @@ class LoginViewController: UIViewController {
         
         loginbutton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
         
+        unsuccessfulLogin = UILabel()
+        unsuccessfulLogin.backgroundColor = UIColor(red: 0.455, green: 0.310, blue: 0.639, alpha: 0)
+        unsuccessfulLogin.text = "Incorrect username of password."
+        unsuccessfulLogin.textAlignment = .center
+        unsuccessfulLogin.font = UIFont(name: "SourceSansPro-Black", size: 20)
+        unsuccessfulLogin.textColor = .systemRed
+        unsuccessfulLogin.isHidden = true
+        
         view.addSubview(appNameLabel)
         view.addSubview(emailTextfield)
         view.addSubview(passwordTextField)
         view.addSubview(loginbutton)
+        view.addSubview(unsuccessfulLogin)
     }
 
     private func addConstraints() {
@@ -110,20 +125,41 @@ class LoginViewController: UIViewController {
         loginbutton.autoAlignAxis(.vertical, toSameAxisOf: passwordTextField)
         loginbutton.autoPinEdge(.top, to: .bottom, of: passwordTextField, withOffset: 20)
         loginbutton.autoSetDimensions(to: CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: 50))
+        
+        unsuccessfulLogin.autoPinEdge(.top, to: .bottom, of: loginbutton, withOffset: 10)
+        unsuccessfulLogin.autoAlignAxis(toSuperviewAxis: .vertical)
+    }
+    
+    @objc
+    private func hideLoginMessageAction() {
+        unsuccessfulLogin.isHidden = true
     }
     
     @objc
     private func loginAction() {
-        let email = emailTextfield.text ?? ""
-        let password = passwordTextField.text ?? ""
-        let result = ds.login(email: email, password: password)
-        if (result == LoginStatus.success) {
-            let quizzesViewController = QuizzesViewController()
-            navigationController?.pushViewController(quizzesViewController, animated: true)
-        } else {
-            print("Password or email address are incorrect.")
-        }
+        let email = emailTextfield.text ?? " "
+        let password = passwordTextField.text ?? " "
         
+        let urlString = "https://iosquiz.herokuapp.com/api/session?password=" + password + "&username="+email
+        guard let url = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        networkService.executeUrlRequest(request) { (result: Result<LoginResponse, RequestError>) in
+            switch result {
+            case .failure(let error):
+                print ("Error:", error)
+                self.unsuccessfulLogin.isHidden = false
+            case .success(let value):
+                let defaults = UserDefaults.standard
+                defaults.setValue(value.id, forKey: "id")
+                defaults.setValue(value.token, forKey: "token")
+                let quizzesViewController = QuizzesViewController()
+                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.pushViewController(quizzesViewController, animated: true)
+            }
+        }
     }
-
 }
