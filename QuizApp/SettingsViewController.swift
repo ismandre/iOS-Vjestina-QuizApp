@@ -83,6 +83,6 @@ class SettingsViewController: UIViewController {
     
     @objc
     private func logoutAction() {
-        print("button pressed")
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }

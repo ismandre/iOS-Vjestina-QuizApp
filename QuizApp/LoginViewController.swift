@@ -156,10 +156,25 @@ class LoginViewController: UIViewController {
                 let defaults = UserDefaults.standard
                 defaults.setValue(value.id, forKey: "id")
                 defaults.setValue(value.token, forKey: "token")
-                let quizzesViewController = QuizzesViewController()
+                self.navigationController?.popToRootViewController(animated: true)
                 self.navigationController?.popViewController(animated: true)
-                self.navigationController?.pushViewController(quizzesViewController, animated: true)
+                self.navigationController?.pushViewController(self.createTabBarViewController(), animated: true)
             }
         }
+    }
+    
+    private func createTabBarViewController() -> UIViewController {
+        let quizzesViewController = QuizzesViewController()
+        quizzesViewController.tabBarItem.title = "Quizzes"
+        quizzesViewController.tabBarItem = UITabBarItem(title: "Quizzes", image: .add, selectedImage: .add)
+
+        let settingsViewController = SettingsViewController()
+        settingsViewController.tabBarItem = UITabBarItem(title: "Settings", image: .add, selectedImage: .add)
+
+
+        let tabBarViewController = UITabBarController()
+        tabBarViewController.viewControllers = [quizzesViewController, settingsViewController]
+
+        return tabBarViewController
     }
 }
