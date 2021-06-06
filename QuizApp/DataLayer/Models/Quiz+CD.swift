@@ -13,7 +13,7 @@ extension Quiz {
     init(with entity: CDQuiz) {
         category = QuizCategory(rawValue: entity.category!)!
         description = entity.desc!
-        id = Int(entity.id)
+        id = Int(entity.uid)
         imageUrl = entity.imageUrl!
         level = Int(entity.level)
         title = entity.title!
@@ -23,7 +23,7 @@ extension Quiz {
     func populate(_ entity: CDQuiz, in context: NSManagedObjectContext) {
         entity.category = category.rawValue
         entity.desc = description
-        entity.id = Int16(id)
+        entity.uid = Int16(id)
         entity.imageUrl = imageUrl
         entity.level = Int16(level)
         entity.title = title

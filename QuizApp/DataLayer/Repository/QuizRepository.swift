@@ -7,25 +7,25 @@
 
 class QuizRepository {
     
-    private let networkDataSource: QuizNetworkDataSource
-    private let databaseDataSource: QuizDatabaseDataSource
+    private let networkDataSource: QuizNetworkDataSourceProtocol
+    private let databaseDataSource: QuizCoreDataSourceProtocol
     
-    init(networkDataSource: QuizNetworkDataSource, databaseDataSource: QuizDatabaseDataSource) {
+    init(networkDataSource: QuizNetworkDataSourceProtocol, databaseDataSource: QuizCoreDataSourceProtocol) {
         self.networkDataSource = networkDataSource
         self.databaseDataSource = databaseDataSource
     }
     
     func fetchRemoteData() throws {
-        let quizzes = try networkDataSource.fetchQuizzesFromNetwork()
-        coreDataSource.saveNewQuizzes(quizzes)
+        let quizzes = networkDataSource.fetchQuizzesFromNetwork()
+        databaseDataSource.saveNewQuizzes(quizzes)
     }
 
     func fetchLocalData(filter: FilterSettings) -> [Quiz] {
-        coreDataSource.fetchQuizzesFromCoreData(filter: filter)
+        databaseDataSource.fetchQuizzesFromCoreData(filter: filter)
     }
 
     func deleteLocalData(withId id: Int) {
-        coreDataSource.deleteQuiz(withId: id)
+        databaseDataSource.deleteQuiz(withId: id)
     }
 }
 

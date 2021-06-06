@@ -52,7 +52,7 @@ struct QuizCoreDataSource: QuizCoreDataSourceProtocol {
                         let cdQuestion = CDQuestion(context: coreDataContext)
                         question.populate(cdQuestion)
                         cdQuiz.removeFromQuestions(cdQuestion)
-                        cdQuiđ.addToQuestions(cdQuestion)
+                        cdQuiz.addToQuestions(cdQuestion)
                     }
                  }
             } catch {
@@ -82,15 +82,15 @@ struct QuizCoreDataSource: QuizCoreDataSourceProtocol {
 
     private func fetchQuiz(withId id: Int) throws -> CDQuiz? {
         let request: NSFetchRequest<CDQuiz> = CDQuiz.fetchRequest()
-        request.predicate = NSPredicate(format: "%K == %u", #keyPath(CDQuiz.id), id)
+        request.predicate = NSPredicate(format: "%K == %u", #keyPath(CDQuiz.uid), id)
 
         let cdResponse = try coreDataContext.fetch(request)
         return cdResponse.first
     }
 
-    private func deleteAllRestaurantsExcept(withId ids: [Int]) throws {
+    private func deleteAllQuizzesExcept(withId ids: [Int]) throws {
         let request: NSFetchRequest<CDQuiz> = CDQuiz.fetchRequest()
-        request.predicate = NSPredicate(format: "NOT %K IN %@", #keyPath(CDQuiz.id), ids)
+        request.predicate = NSPredicate(format: "NOT %K IN %@", #keyPath(CDQuiz.uid), ids)
 
         let quizzesToDelete = try coreDataContext.fetch(request)
         quizzesToDelete.forEach { coreDataContext.delete($0) }

@@ -34,7 +34,7 @@ final class RestaurantListPresenter {
         sectionNames = Set(quizViewModels.map { $0.category.rawValue }).sorted()
     }
 
-    func deleteRestaurant(at indexPath: IndexPath) {
+    func deleteQuiz(at indexPath: IndexPath) {
         guard let id = viewModelForIndexPath(indexPath)?.id else { return }
         quizUseCase.deleteQuiz(withId: id)
         filterQuizzes(filter: currentFilterSettings)
